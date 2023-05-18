@@ -25,6 +25,7 @@ async function txt2img(): Promise<void> {
   images.value = [];
   is_generating.value = true;
   const response: Txt2ImgResponse = (await client.txt2img(parameters.value, get_progress));
+  console.log(response.images.length)
   images.value = response.images
   previous_parameters.value = response.parameters
   is_generating.value = false;
@@ -212,8 +213,8 @@ onMounted(async () => {
           <v-checkbox label="Enabled" density="compact" v-model="parameters.post_images"></v-checkbox>
         </v-col>
         <v-col cols="6" sm="6" md="3" lg="3" xl="3">
-          <div>Batch count</div>
-          <v-slider min="1" max="4" step="1" v-model="parameters.batch_count">
+          <div>Batch size</div>
+          <v-slider min="1" max="4" step="1" v-model="parameters.batch_size">
             <template v-slot:append>
               <v-text-field
                 type="number"
@@ -221,7 +222,7 @@ onMounted(async () => {
                 density="compact"
                 hide-details
                 variant="outlined"
-                v-model="parameters.batch_count"
+                v-model="parameters.batch_size"
               ></v-text-field>
             </template>
           </v-slider>

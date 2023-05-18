@@ -169,7 +169,8 @@ export class SDWebUIAPI {
   }
 
   async get_upscalers(): Promise<Sampler[]> {
-    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.UPSCALERS)).data.map((sampler: any) => plainToInstance(Upscaler, sampler));
+    return [];
+    // return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.UPSCALERS)).data.map((sampler: any) => plainToInstance(Upscaler, sampler));
   }
 
   async get_sd_models(): Promise<any> {
