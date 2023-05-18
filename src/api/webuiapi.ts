@@ -27,18 +27,22 @@ enum HTTPMethod {
 export class Txt2ImgResponse {
   @Expose()
   @Transform((param) => param.value.map((value: string) => "data:image/png;base64," + value))
-  images: string[];
+  readonly images: string[];
+
+  @Expose({ name: "info"})
+  @Transform((param) => plainToInstance(Txt2ImgParameters, JSON.parse(JSON.parse(JSON.stringify(param.obj.info)))))
+  parameters: Txt2ImgParameters
 }
 
 export class Sampler {
-  name: string
-  aliases: string[]
+  readonly name: string
+  readonly aliases: string[]
 }
 
 export class Txt2ImgProgress {
-  progress = 0.0;
-  eta_relative = 0.0;
-  state: {
+  readonly progress = 0.0;
+  readonly eta_relative = 0.0;
+  readonly state: {
     interrupted: boolean;
     job: string;
     job_count: number;
@@ -48,8 +52,8 @@ export class Txt2ImgProgress {
     sampling_steps: number;
     skipped: boolean;
   };
-  current_image: string | null;
-  textinfo: string | null;
+  readonly current_image: string | null;
+  readonly textinfo: string | null;
 }
 
 export class Txt2ImgParameters {
@@ -71,24 +75,36 @@ export class Txt2ImgParameters {
   batch_size = 1;
   save_images = true;
   post_images = false;
+  nsfw = false;
 }
 
 export class SDWebUIAPIOptions {
-  sd_model_checkpoint: string
-  sd_checkpoint_cache: number
-  sd_vae_checkpoint_cache: number
-  sd_vae: string
-  sd_vae_as_default: boolean
-  CLIP_stop_at_last_layers: number
+  sd_model_checkpoint = "CounterfeitV30_v30.safetensors [cbfba64e66]"
+  sd_checkpoint_cache = 0.0
+  sd_vae_checkpoint_cache = 0.0
+  sd_vae: SDVAECheckpoint = SDVAECheckpoint.NONE
+  sd_vae_as_default = false
+  CLIP_stop_at_last_layers = 2
+  eta_noise_seed_delta = 31337
+}
+
+export enum SDVAECheckpoint {
+  NONE = "None",
+  AUTOMATIC = "Automatic",
+  VAE_FT_MSE_84000_EMA_PRUNED = "vae-ft-mse-840000-ema-pruned.ckpt",
+  KL_F8_ANIME2 = "kl-f8-anime2.ckpt",
+  NOVALAILATEST_PRUNED = "novalailatest-pruned.ckpt",
+  ANYTHING_V40 = "anything-v4.0.vae.pt",
+  COUNTERFEIT_V25 = "Counterfeit-V2.5.vae.pt"
 }
 
 export class SDModelCheckpoint {
-  title: string
-  model_name: string
-  hash: string | null
-  sha256: string | null
-  filename: string
-  config: string | null
+  readonly title: string
+  readonly model_name: string
+  readonly hash: string | null
+  readonly sha256: string | null
+  readonly filename: string
+  readonly config: string | null
 }
 
 export class SDWebUIAPI {
@@ -113,6 +129,13 @@ export class SDWebUIAPI {
   }
 
   async txt2img(params: Txt2ImgParameters, callback: (progress: Txt2ImgProgress) => void): Promise<Txt2ImgResponse> {
+    if (params.nsfw && params.prompt.indexOf("nsfw") === -1) {
+      params.prompt += ", nsfw";
+    }
+    if (!params.nsfw) {
+      params.prompt = params.prompt.replace(", nsfw", "");
+    }
+    console.log(params.prompt)
     const timer = setInterval(async () => {
       const progress: Txt2ImgProgress = await this.get_progress();
       callback(progress);
@@ -150,7 +173,7 @@ export class SDWebUIAPI {
   }
 
   async get_sd_models(): Promise<any> {
-    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS);
+    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS)).data.map((checkpoint: any) => plainToInstance(SDModelCheckpoint, checkpoint));
   }
 
   async get_hypernetworks(): Promise<any> {
