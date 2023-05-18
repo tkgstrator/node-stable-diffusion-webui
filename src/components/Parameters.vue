@@ -34,6 +34,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
       <div>Positive</div>
       <v-textarea :rows="2" counter clearable auto-grow density="compact" v-model="parameters.prompt" :disabled="true"></v-textarea>
     </v-col>
+    <v-divider></v-divider>
     <v-col cols="12" lg="12">
       <div>Negative</div>
       <v-textarea
@@ -46,6 +47,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
         :disabled="true"
       ></v-textarea>
     </v-col>
+    <v-divider></v-divider>
     <v-col cols="12" lg="8">
       <v-row :dense="true">
         <v-col cols="12" sm="6" md="6" lg="6" xl="6">
@@ -58,7 +60,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
             <template v-slot:append>
               <v-text-field
                 type="number"
-                style="width: 80px"
+                style="width: 70px"
                 density="compact"
                 hide-details
                 variant="outlined"
@@ -68,6 +70,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
           </v-slider>
         </v-col>
       </v-row>
+      <v-divider></v-divider>
       <v-row :dense="true">
         <v-col cols="12">
           <v-checkbox label="Hires. fix" density="compact" v-model="parameters.enable_hr"></v-checkbox>
@@ -83,7 +86,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
               <template v-slot:append>
                 <v-text-field
                   type="number"
-                  style="width: 80px"
+                  style="width: 70px"
                   density="compact"
                   hide-details
                   variant="outlined"
@@ -98,7 +101,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
               <template v-slot:append>
                 <v-text-field
                   type="number"
-                  style="width: 80px"
+                  style="width: 70px"
                   density="compact"
                   hide-details
                   variant="outlined"
@@ -113,7 +116,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
               <template v-slot:append>
                 <v-text-field
                   type="number"
-                  style="width: 80px"
+                  style="width: 70px"
                   density="compact"
                   hide-details
                   variant="outlined"
@@ -124,8 +127,9 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
           </v-col>
         </template>
       </v-row>
+      <v-divider></v-divider>
       <v-row :dense="true">
-        <v-col cols="4">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <div>Width</div>
           <v-radio-group inline v-model="parameters.width">
             <v-radio label="512" :value="512"></v-radio>
@@ -133,7 +137,7 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
             <v-radio label="1024" :value="1024"></v-radio>
           </v-radio-group>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <div>Height</div>
           <v-radio-group inline v-model="parameters.height">
             <v-radio label="512" :value="512"></v-radio>
@@ -141,11 +145,11 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
             <v-radio label="1024" :value="1024"></v-radio>
           </v-radio-group>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="6">
           <div>Seed</div>
           <v-text-field type="number" density="compact" hide-details variant="outlined" v-model="parameters.seed"> </v-text-field>
         </v-col>
-        <v-col cols="1">
+        <v-col cols="6">
           <div>Random</div>
           <v-btn @click="parameters.seed = -1">
             <v-icon icon="mdi-dice-6-outline" role="img"></v-icon>
@@ -154,21 +158,22 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
         </v-col>
       </v-row>
       <v-row :dense="true">
-        <v-col cols="3">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <v-checkbox label="Save images" density="compact" v-model="parameters.save_images"></v-checkbox>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <v-checkbox label="Post images" density="compact" v-model="parameters.post_images"></v-checkbox>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <v-btn color="primary" dark style="width: 100%" @click="progress">Option</v-btn>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="6" sm="6" md="3" lg="3" xl="3">
           <v-btn v-if="!is_generating" color="primary" dark style="width: 100%" @click="txt2img">Generate</v-btn>
           <v-btn v-else color="primary" dark style="width: 100%" @click="is_generating">Interrupt</v-btn>
         </v-col>
       </v-row>
     </v-col>
+    <v-divider></v-divider>
     <v-col cols="12" lg="4">
       <v-row>
         <v-col cols="12" class="images-preview mb-2">

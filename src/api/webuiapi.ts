@@ -30,6 +30,11 @@ export class Txt2ImgResponse {
   images: string[];
 }
 
+export class Sampler {
+  name: string
+  aliases: string[]
+}
+
 export class Txt2ImgProgress {
   progress = 0.0;
   eta_relative = 0.0;
@@ -68,6 +73,24 @@ export class Txt2ImgParameters {
   post_images = false;
 }
 
+export class SDWebUIAPIOptions {
+  sd_model_checkpoint: string
+  sd_checkpoint_cache: number
+  sd_vae_checkpoint_cache: number
+  sd_vae: string
+  sd_vae_as_default: boolean
+  CLIP_stop_at_last_layers: number
+}
+
+export class SDModelCheckpoint {
+  title: string
+  model_name: string
+  hash: string | null
+  sha256: string | null
+  filename: string
+  config: string | null
+}
+
 export class SDWebUIAPI {
   private readonly base_url: string;
 
@@ -75,7 +98,7 @@ export class SDWebUIAPI {
     this.base_url = import.meta.env.VITE_APP_SDWEBUI_API_BASE_URL;
   }
 
-  private async request(method: HTTPMethod, endpoint: SDWebUIAPIEndPoint, params: any): Promise<any> {
+  private async request(method: HTTPMethod, endpoint: SDWebUIAPIEndPoint, params: object = {}): Promise<any> {
     const url = this.base_url + endpoint;
     try {
       switch (method) {
@@ -102,16 +125,16 @@ export class SDWebUIAPI {
     return response;
   }
 
-  async get_options(): Promise<any> {
-    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.OPTIONS, {});
+  async get_options(): Promise<SDWebUIAPIOptions> {
+    return plainToInstance(SDWebUIAPIOptions, (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.OPTIONS)).data);
   }
 
-  async set_options(): Promise<any> {
-    return this.request(HTTPMethod.POST, SDWebUIAPIEndPoint.OPTIONS, {});
+  async set_options(params: SDWebUIAPIOptions): Promise<SDWebUIAPIOptions> {
+    return plainToInstance(SDWebUIAPIOptions, (await this.request(HTTPMethod.POST, SDWebUIAPIEndPoint.OPTIONS, params)).data);
   }
 
   async get_progress(): Promise<Txt2ImgProgress> {
-    return plainToInstance(Txt2ImgProgress, (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.PROGRESS, {})).data);
+    return plainToInstance(Txt2ImgProgress, (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.PROGRESS)).data);
   }
 
   async get_cmd_flags(): Promise<any> {
@@ -119,15 +142,15 @@ export class SDWebUIAPI {
   }
 
   async get_samplers(): Promise<any> {
-    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SAMPLERS, {});
+    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SAMPLERS)).data.map((sampler: any) => plainToInstance(Sampler, sampler));
   }
 
-  async get_upscalers(): Promise<any> {
-    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.UPSCALERS, {});
+  async get_upscalers(): Promise<Sampler[]> {
+    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.UPSCALERS)).data.map((sampler: any) => plainToInstance(Upscaler, sampler));
   }
 
   async get_sd_models(): Promise<any> {
-    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS, {});
+    return this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS);
   }
 
   async get_hypernetworks(): Promise<any> {
