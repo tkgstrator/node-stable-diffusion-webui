@@ -1,0 +1,105 @@
+基本:
+  女性:
+    女性(大人): 1 woman
+    女性(子供1): 1 girl
+    女性(子供2): 1_girl
+  男性:
+    男性(大人): 1 man
+    男性(子供): 1 boy
+  不明:
+    天使: 1 angel girl
+    悪魔(1): 1 hell angel girl
+    悪魔(2): 1 demon_girl
+    魔法少女: 1 magical_girl
+    妖精: 1 fairy girl
+年齢:
+  学生:
+    大学生: university student
+    高校生: high school student
+    中学生: middle school student
+胸囲:
+  大: large breasts
+  中: middle breasts
+  小: small breasts
+  無: flat breasts
+髪:
+  長さ:
+    ロング: long hair
+    ミディアム: medium hair
+    ショート: short hair
+  種類:
+    ストレート: straight hair
+    ウェーブ: wavy hair
+    ポニーテール: ponytail
+    ツインテール: twintails
+    三編み: braid
+    ボブカット: bob cut
+  色:
+    金: bronde hair, golden hair
+    銀: silver hair
+    黒: black hair
+瞳:
+  金: golden color eyes
+  青: blue color eyes
+  黒: black color eyes
+  白: white color eyes
+  オッドアイ: heterochromia
+  垂れ目: tareme
+  ツリ目: tsurime
+  ジト目: jitome
+  上目遣い: upturned eyes
+  見開く: wide-eyed
+肌:
+  汗: sweat
+  濡れ: wet skin, wet hair
+耳:
+  イヌ耳: dog ears
+  ネコ耳: cat ears
+  ライオン耳: lion ears
+表情:
+  喜:
+    微笑: little smile
+    笑顔: smile
+    笑う: laugh
+    快活: cheerful
+    ニヤニヤ: grin
+    悲しい笑み: sad smile
+  怒:
+    イライラ: annoyed
+    怒る: angry
+    激怒: furious
+    嫌悪: disgust
+    しかめっ面: frown
+    にらむ: glaring
+    くっころ: scowl
+  怖:
+    怯える: terrified
+    怖がる: frightened
+    恐怖: scared
+  哀:
+    悲しい: sad
+    涙: cry
+    涙目: water eye
+    不幸: unhappy
+    泣く: tearful
+    号泣: sobbing
+    流れる: streaming tears
+    拭う: wiping tears
+  他:
+    残念: disappointed
+    困惑: confused
+    憂鬱: melancholy
+    ウインク: one eye closed
+    クール: cool look
+    疲れる: tired
+    眠い: sleepy
+    放心: afterglow
+    誘惑: seductive smile
+    驚く: surprised
+    照れる: shame
+    恥ずかしい: embarrassed
+    真剣: serious
+    酔う: drunk
+    閉じる: closed eyes
+    快感: comfortable
+

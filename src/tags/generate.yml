@@ -1,0 +1,33 @@
+X:
+  Checkpoint:
+    7thanimeV3: 7th_anime_v3_B.safetensors
+    AbyssOrangeMixV2: AbyssOrangeMix2_nsfw.safetensors
+    Anything: anything-v4.5-pruned.safetensors
+    Bluepencil: blue_pencil-v7.safetensors
+    Breakdomain: breakdomain_M2150.safetensor'
+    CounterAnyMix: CounteranyminiMix_v1.safetensors
+    CounterfeitV2.5: Counterfeit-V2.5.safetensors
+    CounterfeitV3.0: CounterfeitV30_v30.safetensors
+    EndlessMix: endlessmix_v80.safetensors
+    Evarlasting: everlasting_v2.safetensors
+    KojiV2: koji_v2.safetensors
+Y:
+  Denoising:
+    0.55: '0.55'
+    0.60: '0.60'
+    0.65: '0.65'
+    0.70: '0.70'
+  Clip skip:
+    1: '1'
+    2: '2'
+  VAE:
+    MSE: vae-ft-mse-840000-ema-pruned.ckpt
+    Anime2: kl-f8-anime2.ckpt
+    AnythingV4.0: anything-v4.0.vae.pt
+    CounterfeitV2.5: Counterfeit-V2.5.vae.pt
+Z:
+  SFG Scale:
+    7: '7'
+    7.5: '7.5'
+    8: '8'
+    9: '9'

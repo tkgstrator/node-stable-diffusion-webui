@@ -1,0 +1,20 @@
+推奨:
+  ポジティブ:
+    傑作: 'masterpiece'
+    名作: 'best composition'
+    最高品質: '(best quality), (ultra-detailed:1.4)'
+    高解像度: '(high resolution)'
+    被写体深度: 'depth of field'
+    焦点: 'solo girl focus'
+  ネガティブ:
+    EasyNegative: 'EasyNegative'
+    EasyNegativeV2: 'EasyNegativev2 (worst quality low quality:1.4)'
+    BadHand: 'badhandv4'
+    BadHands: 'bad-hands-5'
+    BadPrompt: 'bad_prompt_version2'
+    Text: 'text'
+スタイル:
+  Stroke: 'loose strokes, rough painting'
+オプション:
+  R18: 'nsfw'
+
