@@ -1,31 +1,22 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { Ref } from 'vue';
-import ParametersView from '@/components/Parameters.vue'
-import PromptTagsView from '@/components/PromptTags.vue'
-// const red: Ref<number> = ref(0);
-// const parameters: Ref<Parameters> = ref(new Parameters())
-// const parameters: Parameters = new Parameters() 
+import ParametersView from "@/components/Parameters.vue";
 </script>
 
-<script lang="ts">
-  // export default {
-  //   data () {
-  //     return {
-  //       red: 64,
-  //       green: 128,
-  //       blue: 10,
-  //     }
-  //   },
-  // }
-</script>
+<script lang="ts"></script>
 
 <template>
   <v-app-bar :elevation="0" rounded>
     <v-toolbar-title>Stable Diffusion WebUI</v-toolbar-title>
   </v-app-bar>
   <v-container>
-    <PromptTagsView />
-    <ParametersView :parameters="parameters" />
+    <ParametersView />
   </v-container>
 </template>
+
+<style lang="scss" scoped>
+@media screen and (min-width: 1280px) {
+  .v-container {
+    max-width: 1760px;
+  }
+}
+</style>

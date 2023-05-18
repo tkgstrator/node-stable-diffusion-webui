@@ -6,6 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
     "strict": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
