@@ -6,7 +6,8 @@
   正統セーラー服: sailor collar
   ブレザー: blazer
   スクールカーディガン: school cardigan
-  パジャマ: pajamas
+  パジャマ: pajama
+  ランジェリー: lingerie
 コスプレ:
   ゴシック: gothic dress
   ゴスロリ: gothic lolita
@@ -17,9 +18,11 @@
   バニーガール: bunny girl
   巫女: shrine maiden
   和服: japanese clothes
+  漢服: hanfu
   着物: kimono
   エプロン: apron
   チャイニーズ・ジャケット: chinese jacket
+  チャイナドレス: china dress
   キュロット風民族衣装: culottes-style ethnic clothing
 ビジネス:
   客室乗務員: stewardess
@@ -62,9 +65,14 @@
   バックレス: backless
   トップレス: topless
   ボトムレス: bottomless
-  着替え中(1): 'undressing,half undress'
+  着替え中(1): undressing,half undress
   着替え中(2): open clothes
   肩見せ: off-the-shoulder
   胸見せ: underboob
+  横胸: sideboob
   ブカブカ: oversized
   下着: underwears
+  網タイツ: fishnet stocking
+  裸: naked
+  裸エプロン: naked apron
+  魅了: sexy

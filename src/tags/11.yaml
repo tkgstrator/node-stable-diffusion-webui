@@ -29,10 +29,10 @@
   映画館: theater
   美術館: museum
   動物園: zoo
-  公園: garden
+  公園(1): garden
+  公園(2): public park
   研究所: laboratory
   プラネタリウム: planetarium
-  公園: public park
   牢屋(1): jail
   牢屋(2): prison
   ホテル: hotel room
