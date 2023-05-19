@@ -1,0 +1,79 @@
+室内:
+  ベッド: bed
+  天蓋ベッド: canopy bed
+  浴槽: bathtub
+  風呂(1): bath
+  風呂(2): bath room
+  温泉(1): onsen
+  温泉(2): hot spring
+  サウナ(1): sauna
+  サウナ(2): steam bath
+  和室: japanese-style room
+  台所: kitchen
+  脱衣所: dressing room
+  トイレ: toilet
+  押入れ: armoire
+  クローゼット: closet
+  ソファー: sofa
+  リビング: living room
+  散らかった部屋: cluttered rooms
+公共:
+  和室(1): japanese house
+  和室(2): japanese house on a hill
+  教室: class room
+  茶屋: tea shop
+  喫茶店: coffe shop
+  図書館: library
+  病院: hospital
+  水族館: aquarium
+  映画館: theater
+  美術館: museum
+  動物園: zoo
+  公園: garden
+  研究所: laboratory
+  プラネタリウム: planetarium
+  公園: public park
+  牢屋(1): jail
+  牢屋(2): prison
+  ホテル: hotel room
+  フロント: front of hotel
+  塾: cram school
+  路地裏: alley
+  電車: train
+  エレベーター: elevator
+  屋上: rooftop
+  廊下: hallway
+  空き地: vacant
+  地下街: underground mall
+  森: forest
+  商業地: downtown
+  路上: street
+  協会: church
+  寺: temple
+  神社: shrine
+抽象:
+  日本: japan
+  京都: kyoto
+  ニューヨーク: newyork
+  パリ: paris
+  ノスタルジック: nostalgic
+  荒廃: ruins
+  水路: canal
+  ビル: buildings
+  日本家屋: traditional japanese house
+  ヨーロッパ家屋: european house
+  伝統ヨーロッパ家屋: traditional european house
+  風車: windmill
+  海: sea
+  大海: ocean
+  海中: under sea
+  浜辺: beach
+  湖: lake
+  山: mountain
+  草原: grass field
+  桜: cherry blossoms
+  雪山: snow mountain
+  星空: starry sky
+  地獄: hell
+  天国: heaven
+  宇宙: space

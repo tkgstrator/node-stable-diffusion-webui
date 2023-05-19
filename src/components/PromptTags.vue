@@ -1,45 +1,81 @@
 <script setup lang="ts">
-// import YAML_DEFAULT from "@/tags/default.yml";
-// import YAML_CAMERA from "@/tags/camera.yml";
+import { watch, ref, Ref } from "vue";
+import { CategoryGroup, CategoryTag, CategoryTagGroup, Prompt, PromptTag } from "@/parameters"
+import { PropType } from "vue";
 
-// enum PromptTag {
-//   DEFAULT = "基本",
-//   PERSONALITY = "人物",
-//   CAMERA = "カメラ",
-//   PLACES = "場所",
-//   CLOTHES_BOTH = "服(上下)",
-//   CLOTHES_TOPS = "服(トップス)",
-//   CLOTHES_BOTTOMS = "服(ボトムス)",
-//   SHOES = "靴",
-//   EQUIPMENTS = "装備",
-//   ACTIVITY = "動作",
-// }
+const props = defineProps({
+  modelValue: {
+    type: Object as PropType<Prompt>,
+    required: true,
+    default: []
+  },
+  category: {
+    type: Object as PropType<CategoryTagGroup>,
+    required: true
+  },
+})
 
-// const values = {
-//   DEFAULT: YAML_DEFAULT,
-//   CAMERA: YAML_CAMERA,
-// } as const;
+const emit = defineEmits<{
+  (event: 'update:modelValue', modelValue: Prompt): void
+}>()
 
-// Object.entries(values).forEach(([key, values]) => {
-//   // console.log(key)
-//   Object.entries(values).forEach(([key, values]) => {
-//     // console.log(key)
-//     Object.entries(values).forEach(([key, values]) => {
-//       if (typeof values === "object") {
-//         Object.entries(values).forEach(([key, values]) => {
-//           console.log(key, values);
-//         });
-//       }
-//       if (typeof values === "string") {
-//         console.log(key, values);
-//       }
-//     });
-//   });
-// });
+function positive(prompt: PromptTag) {
+  if (props.modelValue.positive.includes(prompt.prompt)) {
+    props.modelValue.positive = props.modelValue.positive.filter((item) => item !== prompt.prompt)
+    return
+  }
+  props.modelValue.positive.push(prompt.prompt)
+}
+
+function negative(prompt: PromptTag) {
+  if (props.modelValue.negative.includes(prompt.prompt)) {
+    props.modelValue.negative = props.modelValue.negative.filter((item) => item !== prompt.prompt)
+    return
+  }
+  props.modelValue.negative.push(prompt.prompt)
+}
+
+function color(prompt: PromptTag) {
+  if (props.modelValue.negative.includes(prompt.prompt)) {
+    return "text-error error"
+  }
+  return undefined
+}
 </script>
 
 <template>
-  <div></div>
-  <!-- <v-select :items="Object.values(PromptTag)" :placeholder="PromptTag.DEFAULT"> </v-select>
-  <v-btn-toggle> </v-btn-toggle> -->
+  <v-row class="mt-2">
+    <v-col cols="12" v-for="group in category.groups" :key="group.subcategory">
+      <div>{{ group.subcategory }}</div>
+      <v-chip-group multiple selected-class="text-primary" column filter variant="outlined">
+        <v-chip label outlined v-for="prompt in group.prompts" :key="prompt.prompt" @click="positive(prompt)" v-on:contextmenu.prevent :class="color(prompt)">
+          <div @contextmenu.native="negative(prompt)">{{ prompt.tag }}</div>
+        </v-chip>
+      </v-chip-group>
+    </v-col>
+  </v-row>
 </template>
+
+<style lang="scss" scoped>
+.v-row {
+  margin: 0px;
+}
+.v-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 1.1rem;
+}
+
+.v-chip-group {
+  padding: 0;
+}
+
+.v-chip.error.primary {
+  color: white;
+  background-color: #f44336;
+}
+
+.v-col {
+  padding: 8px 8px 8px 12px;
+}
+</style>

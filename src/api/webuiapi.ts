@@ -129,13 +129,6 @@ export class SDWebUIAPI {
   }
 
   async txt2img(params: Txt2ImgParameters, callback: (progress: Txt2ImgProgress) => void): Promise<Txt2ImgResponse> {
-    if (params.nsfw && params.prompt.indexOf("nsfw") === -1) {
-      params.prompt += ", nsfw";
-    }
-    if (!params.nsfw) {
-      params.prompt = params.prompt.replace(", nsfw", "");
-    }
-    console.log(params.prompt)
     const timer = setInterval(async () => {
       const progress: Txt2ImgProgress = await this.get_progress();
       callback(progress);

@@ -1,10 +1,10 @@
 アングル:
-  上から(1): from above
-  上から(2): from above, floor
+  上から(小): from above
+  上から(大): from above,floor
   下から: from below
   横から: from side
-  後から(1): from behind
-  後から(2): back focus
+  後から(小): from behind
+  後から(大): back focus
   傾き: dutch angle
   ダイナミック: dynamic angle
   POV: pov
@@ -13,7 +13,7 @@
   よそ見: looking away
   見上げる: looking up
   見下ろす: looking down
-構図:
+被写体:
   全体: full body
   似顔絵: portrait
   胸元: close up

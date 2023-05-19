@@ -11,24 +11,25 @@
   ゴシック: gothic dress
   ゴスロリ: gothic lolita
   ナース: nurse
+  チアリーダー: cheerleader
   ウェイトレス: waitress
   レオタード: leotard
   バニーガール: bunny girl
-  客室乗務員: stewardess
   巫女: shrine maiden
   和服: japanese clothes
   着物: kimono
+  エプロン: apron
+  チャイニーズ・ジャケット: chinese jacket
+  キュロット風民族衣装: culottes-style ethnic clothing
+ビジネス:
+  客室乗務員: stewardess
   白衣: white coat
   レインコート: raincoat
-  チアリーダー: cheerleader
   タキシード: tuxedo
   サドル・ジャケット: saddle jacket
-  チャイニーズ・ジャケット: chinese jacket
   ホテルスタッフ: uniforms worn by hotel staff
   スモーキング・ジャケット: smoking jacket
   ディレクターズスーツ: director's suit
-  キュロット風民族衣装: culottes-style ethnic clothing
-  エプロン: apron
 メイド:
   フレンチメイド: French maid
   ゴシックメイド: Gothic Maid
@@ -61,7 +62,7 @@
   バックレス: backless
   トップレス: topless
   ボトムレス: bottomless
-  着替え中(1): 'undressing, half undress'
+  着替え中(1): 'undressing,half undress'
   着替え中(2): open clothes
   肩見せ: off-the-shoulder
   胸見せ: underboob

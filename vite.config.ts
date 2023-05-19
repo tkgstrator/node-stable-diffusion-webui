@@ -2,6 +2,7 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteYaml from "@modyfi/vite-plugin-yaml";
+import path from "path";
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -17,28 +18,17 @@ export default defineConfig({
     cors: true,
   },
   plugins: [
-    vue({ 
-      template: { transformAssetUrls }
-    }),
-    ViteYaml(),
+    vue(),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true,
     }),
+    ViteYaml(),
   ],
   define: { 'process.env': {} },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      "@": path.resolve(__dirname, "./src"),
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
   },
 })

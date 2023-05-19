@@ -1,0 +1,24 @@
+女性:
+  大人: 1 woman
+  子供: 1 girl
+  妖精: 1 fairy girl
+  天使: 1 angel girl
+  悪魔(1): 1 hell angel girl
+  悪魔(2): 1 demon_girl
+  魔法少女: 1 magical_girl
+男性:
+  大人: 1 man
+  子供: 1 boy
+  妖精: 1 fairy boy
+  天使: 1 angel boy
+  悪魔(1): 1 hell angel boy
+  悪魔(2): 1 demon boy
+  魔法少年: 1 magical boy
+複数:
+  姉妹: sisters
+  兄弟: brothers
+年齢:
+  成人: adult
+  大学生: university student
+  高校生: high school student
+  中学生: middle school student

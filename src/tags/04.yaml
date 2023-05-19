@@ -1,6 +1,5 @@
 基本:
   立つ: standing
-  後ろ姿: back view
   前かがみ: leaning forward
   走る: running
   歩く: walking
@@ -12,18 +11,26 @@
   寝る: sleeping
   使う: using
   乗る: riding
-  勉強する(1): studying
-  勉強する(2): learning
+  泳ぐ: swiming
+  勉強する: studying
   跨る: cowgirl position
   浸かる: soaking
   ダイナミック: dynamic pose
+  吸う: smoking
+  歌う: singing
+寝転がる:
   四つん這い: all fours
   仰向け: on back
-  うつ伏せ: supine
+  うつ伏せ(1): supine
+  うつ伏せ(2): on stomach
+  ベッド: sleep in bed
+  布団: sleep in mattress
+  床: sleep in floor
 座る:
   椅子: setting on the chair
   ソファー: sitting on the sofa
   机: sitting on the table
+  持たれる: reclining
 腕:
   手を振る: waving
   ハイタッチ: highfive
@@ -33,14 +40,19 @@
   上げる: arms up
   頭の後ろ: arms behind head
   頭に当てる: hand over head
+  太ももに当てる: hand between legs
   広げる: spread arms
   手ぶら: (both hands on chest:1.4)
+  親指を立てる: thumbs up
   にゃーん: paw pose
+  ポケット: hand in my pocket
 脚:
   組む: crossed legs
-  屈む: squatting
+  しゃがむ: squatting
   膝つき: kneeling
   体育座り: hugging own legs
   胎位: fetal position
   正座: seiza
-  女の子座り: wariza
+  女の子座り(1): wariza
+  女の子座り(2): yokozuwari
+  片膝: one knee

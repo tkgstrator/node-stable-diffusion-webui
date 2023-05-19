@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-import ParametersView from "@/components/Parameters.vue";
+import InputView from "./InputView.vue";
 </script>
 
 <script lang="ts"></script>
 
 <template>
-  <v-app-bar :elevation="0" rounded>
-    <v-toolbar-title>Stable Diffusion WebUI</v-toolbar-title>
+  <v-app-bar :elevation="0" density="compact" theme="dark">
+    <v-toolbar>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-title>Stable Diffusion WebUI</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
   </v-app-bar>
   <v-container>
-    <ParametersView />
+    <InputView />
   </v-container>
 </template>
 
