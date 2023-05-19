@@ -29,14 +29,14 @@ export class Txt2ImgResponse {
   @Transform((param) => param.value.map((value: string) => "data:image/png;base64," + value))
   readonly images: string[];
 
-  @Expose({ name: "info"})
+  @Expose({ name: "info" })
   @Transform((param) => plainToInstance(Txt2ImgParameters, JSON.parse(JSON.parse(JSON.stringify(param.obj.info)))))
-  parameters: Txt2ImgParameters
+  parameters: Txt2ImgParameters;
 }
 
 export class Sampler {
-  readonly name: string
-  readonly aliases: string[]
+  readonly name: string;
+  readonly aliases: string[];
 }
 
 export class Txt2ImgProgress {
@@ -79,13 +79,13 @@ export class Txt2ImgParameters {
 }
 
 export class SDWebUIAPIOptions {
-  sd_model_checkpoint = "CounterfeitV30_v30.safetensors [cbfba64e66]"
-  sd_checkpoint_cache = 0.0
-  sd_vae_checkpoint_cache = 0.0
-  sd_vae: SDVAECheckpoint = SDVAECheckpoint.NONE
-  sd_vae_as_default = false
-  CLIP_stop_at_last_layers = 2
-  eta_noise_seed_delta = 31337
+  sd_model_checkpoint = "CounterfeitV30_v30.safetensors [cbfba64e66]";
+  sd_checkpoint_cache = 0.0;
+  sd_vae_checkpoint_cache = 0.0;
+  sd_vae: SDVAECheckpoint = SDVAECheckpoint.NONE;
+  sd_vae_as_default = false;
+  CLIP_stop_at_last_layers = 2;
+  eta_noise_seed_delta = 31337;
 }
 
 export enum SDVAECheckpoint {
@@ -95,16 +95,16 @@ export enum SDVAECheckpoint {
   KL_F8_ANIME2 = "kl-f8-anime2.ckpt",
   NOVALAILATEST_PRUNED = "novalailatest-pruned.ckpt",
   ANYTHING_V40 = "anything-v4.0.vae.pt",
-  COUNTERFEIT_V25 = "Counterfeit-V2.5.vae.pt"
+  COUNTERFEIT_V25 = "Counterfeit-V2.5.vae.pt",
 }
 
 export class SDModelCheckpoint {
-  readonly title: string
-  readonly model_name: string
-  readonly hash: string | null
-  readonly sha256: string | null
-  readonly filename: string
-  readonly config: string | null
+  readonly title: string;
+  readonly model_name: string;
+  readonly hash: string | null;
+  readonly sha256: string | null;
+  readonly filename: string;
+  readonly config: string | null;
 }
 
 export class SDWebUIAPI {
@@ -167,7 +167,9 @@ export class SDWebUIAPI {
   }
 
   async get_sd_models(): Promise<any> {
-    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS)).data.map((checkpoint: any) => plainToInstance(SDModelCheckpoint, checkpoint));
+    return (await this.request(HTTPMethod.GET, SDWebUIAPIEndPoint.SD_MODELS)).data.map((checkpoint: any) =>
+      plainToInstance(SDModelCheckpoint, checkpoint),
+    );
   }
 
   async get_hypernetworks(): Promise<any> {

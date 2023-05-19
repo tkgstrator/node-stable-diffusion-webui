@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { SDWebUIAPI, Txt2ImgParameters, Txt2ImgProgress, Txt2ImgResponse, SDModelCheckpoint, SDWebUIAPIOptions, SDVAECheckpoint } from "@/api/webuiapi";
+import {
+  SDWebUIAPI,
+  Txt2ImgParameters,
+  Txt2ImgProgress,
+  Txt2ImgResponse,
+  SDModelCheckpoint,
+  SDWebUIAPIOptions,
+  SDVAECheckpoint,
+} from "@/api/webuiapi";
 import { onMounted } from "vue";
 import { Ref, ref } from "vue";
 import Options from "./Options.vue";
@@ -15,14 +23,14 @@ const client: SDWebUIAPI = new SDWebUIAPI();
 const parameters: Ref<Txt2ImgParameters> = ref(new Txt2ImgParameters());
 const previous_parameters: Ref<Txt2ImgParameters> = ref(new Txt2ImgParameters());
 const options: Ref<SDWebUIAPIOptions> = ref(new SDWebUIAPIOptions());
-const sd_models: Ref<SDModelCheckpoint[] > = ref([]);
+const sd_models: Ref<SDModelCheckpoint[]> = ref([]);
 
 const props = defineProps({
   prompts: {
     type: Object as PropType<Prompt>,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 async function txt2img(): Promise<void> {
   progress.value = new Txt2ImgProgress();
@@ -30,9 +38,9 @@ async function txt2img(): Promise<void> {
   is_generating.value = true;
   parameters.value.prompt = props.prompts.positive.join(",");
   parameters.value.negative_prompt = props.prompts.negative.join(",");
-  const response: Txt2ImgResponse = (await client.txt2img(parameters.value, get_progress));
-  images.value = response.images
-  previous_parameters.value = response.parameters
+  const response: Txt2ImgResponse = await client.txt2img(parameters.value, get_progress);
+  images.value = response.images;
+  previous_parameters.value = response.parameters;
   is_generating.value = false;
 }
 
@@ -43,14 +51,14 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
 onMounted(async () => {
   options.value = await client.get_options();
   sd_models.value = await client.get_sd_models();
-})
+});
 </script>
 
 <template>
   <v-row>
     <Options />
     <v-divider></v-divider>
-    <Sampling :parameters="parameters"/>
+    <Sampling :parameters="parameters" />
     <v-col cols="12" lg="4">
       <v-row>
         <v-col cols="12" sm="6" md="6" lg="12" xl="12" class="images-preview mb-2">
@@ -66,10 +74,10 @@ onMounted(async () => {
             </template>
           </v-img>
         </v-col>
-      <v-col cols="12" sm="3" md="6" lg="3" xl="3">
-        <v-btn v-if="!is_generating" color="primary" dark style="width: 100%" @click="txt2img">Generate</v-btn>
-        <v-btn v-else color="primary" dark style="width: 100%" @click="is_generating">Interrupt</v-btn>
-      </v-col>
+        <v-col cols="12" sm="3" md="6" lg="3" xl="3">
+          <v-btn v-if="!is_generating" color="primary" dark style="width: 100%" @click="txt2img">Generate</v-btn>
+          <v-btn v-else color="primary" dark style="width: 100%" @click="is_generating">Interrupt</v-btn>
+        </v-col>
         <v-col cols="2" class="justify-center" v-for="(image, index) in images" :key="index">
           <v-img
             :src="image"

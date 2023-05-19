@@ -1,19 +1,19 @@
-import CATEGORY_00 from "@/tags/00.yaml"
-import CATEGORY_01 from "@/tags/01.yaml"
-import CATEGORY_02 from "@/tags/02.yaml"
-import CATEGORY_03 from "@/tags/03.yaml"
-import CATEGORY_04 from "@/tags/04.yaml"
-import CATEGORY_05 from "@/tags/05.yaml"
-import CATEGORY_06 from "@/tags/06.yaml"
-import CATEGORY_07 from "@/tags/07.yaml"
-import CATEGORY_08 from "@/tags/08.yaml"
-import CATEGORY_09 from "@/tags/09.yaml"
-import CATEGORY_10 from "@/tags/10.yaml"
-import CATEGORY_11 from "@/tags/11.yaml"
-import CATEGORY_12 from "@/tags/12.yaml"
+import CATEGORY_00 from "@/tags/00.yaml";
+import CATEGORY_01 from "@/tags/01.yaml";
+import CATEGORY_02 from "@/tags/02.yaml";
+import CATEGORY_03 from "@/tags/03.yaml";
+import CATEGORY_04 from "@/tags/04.yaml";
+import CATEGORY_05 from "@/tags/05.yaml";
+import CATEGORY_06 from "@/tags/06.yaml";
+import CATEGORY_07 from "@/tags/07.yaml";
+import CATEGORY_08 from "@/tags/08.yaml";
+import CATEGORY_09 from "@/tags/09.yaml";
+import CATEGORY_10 from "@/tags/10.yaml";
+import CATEGORY_11 from "@/tags/11.yaml";
+import CATEGORY_12 from "@/tags/12.yaml";
 
 /**
- * カテゴリ 
+ * カテゴリ
  */
 const categories = [
   CATEGORY_00,
@@ -29,10 +29,10 @@ const categories = [
   CATEGORY_10,
   CATEGORY_11,
   CATEGORY_12,
-]
+];
 
 /**
- * サンプラー 
+ * サンプラー
  */
 export enum SamplingMethod {
   EULER = "Euler",
@@ -64,47 +64,38 @@ export enum CategoryGroup {
   CLOTHES_SWIM = "水着",
   ANGLE = "構図",
   PLACES = "場所",
-  TIME = "天気/時間"
+  TIME = "天気/時間",
 }
 
 /**
- * WebUIAPIに投げるパラメーター 
+ * WebUIAPIに投げるパラメーター
  */
 export class SDWebUIParameters {
-  category: CategoryGroup
-  parameters: Parameters
-  prompts: Prompt
+  category: CategoryGroup;
+  parameters: Parameters;
+  prompts: Prompt;
 
   constructor() {
-    this.category = CategoryGroup.DEFAULT; 
+    this.category = CategoryGroup.DEFAULT;
     this.parameters = new Parameters();
     this.prompts = new Prompt();
   }
 }
 
 /**
- * プロンプト 
+ * プロンプト
  */
 export class Prompt {
-  positive: string[] = [
-  ]
-  negative: string[] = [
-    "EasyNegativev2",
-    "EasyNegative",
-    "badhandv4",
-    "bad-hands-5",
-    "bad_prompt_version2",
-    "signature",
-    "text,signature",
-  ]
+  positive: string[] = [];
+  negative: string[] = ["EasyNegativev2", "EasyNegative", "badhandv4", "bad-hands-5", "bad_prompt_version2", "signature", "text,signature"];
 }
 
 /**
- * チェックするプロンプト 
+ * チェックするプロンプト
  */
 export class PromptTag {
-  tag: string
-  prompt: string
+  tag: string;
+  prompt: string;
 
   constructor(key: string, value: string) {
     this.tag = key;
@@ -113,8 +104,8 @@ export class PromptTag {
 }
 
 export class CategoryTag {
-  subcategory: string
-  prompts: PromptTag[]
+  subcategory: string;
+  prompts: PromptTag[];
 
   constructor(subcategory: string, prompts: PromptTag[]) {
     this.subcategory = subcategory;
@@ -123,18 +114,21 @@ export class CategoryTag {
 }
 
 export class CategoryTagGroup {
-  category: CategoryGroup
-  groups: CategoryTag[]
+  category: CategoryGroup;
+  groups: CategoryTag[];
 
   constructor(category: CategoryGroup) {
     const index: number = Object.values(CategoryGroup).indexOf(category);
-    console.log(index)
+    console.log(index);
     this.category = category;
-    this.groups = index === -1 ? [] : Object.entries(categories[index]).map(([key, values]) => {
-      const subcategory: string = key
-      const prompts: PromptTag[] = Object.entries(values).map(([key, value]) => new PromptTag(key, value as string))
-      return new CategoryTag(subcategory, prompts)
-    })
+    this.groups =
+      index === -1
+        ? []
+        : Object.entries(categories[index]).map(([key, values]) => {
+            const subcategory: string = key;
+            const prompts: PromptTag[] = Object.entries(values).map(([key, value]) => new PromptTag(key, value as string));
+            return new CategoryTag(subcategory, prompts);
+          });
   }
 }
 

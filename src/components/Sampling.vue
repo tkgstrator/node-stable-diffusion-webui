@@ -6,9 +6,9 @@ import { PropType } from "vue";
 defineProps({
   parameters: {
     type: Object as PropType<Txt2ImgParameters>,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -16,15 +16,20 @@ defineProps({
     <v-row :dense="true">
       <v-col cols="12" sm="6" md="6" lg="6" xl="6">
         <div>Sampling method</div>
-        <v-select :items="Object.values(SamplingMethod)" density="compact" v-model="parameters.sampler_name" single-line>
-        </v-select>
+        <v-select :items="Object.values(SamplingMethod)" density="compact" v-model="parameters.sampler_name" single-line> </v-select>
       </v-col>
       <v-col cols="12" sm="6" md="6" lg="6" xl="6">
         <div>Sampling steps</div>
         <v-slider min="25" max="50" step="5" v-model="parameters.steps">
           <template v-slot:append>
-            <v-text-field type="number" style="width: 70px" density="compact" hide-details variant="outlined"
-              v-model="parameters.steps"></v-text-field>
+            <v-text-field
+              type="number"
+              style="width: 70px"
+              density="compact"
+              hide-details
+              variant="outlined"
+              v-model="parameters.steps"
+            ></v-text-field>
           </template>
         </v-slider>
       </v-col>
@@ -46,8 +51,14 @@ defineProps({
           <div>Hires steps</div>
           <v-slider min="15" max="30" step="5" v-model="parameters.hr_second_pass_steps">
             <template v-slot:append>
-              <v-text-field type="number" style="width: 70px" density="compact" hide-details variant="outlined"
-                v-model="parameters.hr_second_pass_steps"></v-text-field>
+              <v-text-field
+                type="number"
+                style="width: 70px"
+                density="compact"
+                hide-details
+                variant="outlined"
+                v-model="parameters.hr_second_pass_steps"
+              ></v-text-field>
             </template>
           </v-slider>
         </v-col>
@@ -55,8 +66,14 @@ defineProps({
           <div>Denoising strength</div>
           <v-slider min="0.5" max="1.0" step="0.05" v-model="parameters.denoising_strength">
             <template v-slot:append>
-              <v-text-field type="number" style="width: 80px" density="compact" hide-details variant="outlined"
-                v-model="parameters.denoising_strength"></v-text-field>
+              <v-text-field
+                type="number"
+                style="width: 80px"
+                density="compact"
+                hide-details
+                variant="outlined"
+                v-model="parameters.denoising_strength"
+              ></v-text-field>
             </template>
           </v-slider>
         </v-col>
@@ -64,8 +81,14 @@ defineProps({
           <div>Upscale by</div>
           <v-slider min="1.0" max="2.0" step="0.05" v-model="parameters.hr_scale">
             <template v-slot:append>
-              <v-text-field type="number" style="width: 70px" density="compact" hide-details variant="outlined"
-                v-model="parameters.hr_scale"></v-text-field>
+              <v-text-field
+                type="number"
+                style="width: 70px"
+                density="compact"
+                hide-details
+                variant="outlined"
+                v-model="parameters.hr_scale"
+              ></v-text-field>
             </template>
           </v-slider>
         </v-col>
@@ -91,8 +114,7 @@ defineProps({
       </v-col>
       <v-col cols="6" sm="6" md="3" lg="3" xl="3">
         <div>Seed</div>
-        <v-text-field type="number" density="compact" hide-details variant="outlined" v-model="parameters.seed">
-        </v-text-field>
+        <v-text-field type="number" density="compact" hide-details variant="outlined" v-model="parameters.seed"> </v-text-field>
       </v-col>
       <v-col cols="6" sm="6" md="3" lg="3" xl="3">
         <div>Random</div>
@@ -119,8 +141,14 @@ defineProps({
         <div>Batch size</div>
         <v-slider min="1" max="4" step="1" v-model="parameters.batch_size">
           <template v-slot:append>
-            <v-text-field type="number" style="width: 80px" density="compact" hide-details variant="outlined"
-              v-model="parameters.batch_size"></v-text-field>
+            <v-text-field
+              type="number"
+              style="width: 80px"
+              density="compact"
+              hide-details
+              variant="outlined"
+              v-model="parameters.batch_size"
+            ></v-text-field>
           </template>
         </v-slider>
       </v-col>

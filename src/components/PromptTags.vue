@@ -1,45 +1,45 @@
 <script setup lang="ts">
 import { watch, ref, Ref } from "vue";
-import { CategoryGroup, CategoryTag, CategoryTagGroup, Prompt, PromptTag } from "@/parameters"
+import { CategoryGroup, CategoryTag, CategoryTagGroup, Prompt, PromptTag } from "@/parameters";
 import { PropType } from "vue";
 
 const props = defineProps({
   modelValue: {
     type: Object as PropType<Prompt>,
     required: true,
-    default: []
+    default: [],
   },
   category: {
     type: Object as PropType<CategoryTagGroup>,
-    required: true
+    required: true,
   },
-})
+});
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', modelValue: Prompt): void
-}>()
+  (event: "update:modelValue", modelValue: Prompt): void;
+}>();
 
 function positive(prompt: PromptTag) {
   if (props.modelValue.positive.includes(prompt.prompt)) {
-    props.modelValue.positive = props.modelValue.positive.filter((item) => item !== prompt.prompt)
-    return
+    props.modelValue.positive = props.modelValue.positive.filter((item) => item !== prompt.prompt);
+    return;
   }
-  props.modelValue.positive.push(prompt.prompt)
+  props.modelValue.positive.push(prompt.prompt);
 }
 
 function negative(prompt: PromptTag) {
   if (props.modelValue.negative.includes(prompt.prompt)) {
-    props.modelValue.negative = props.modelValue.negative.filter((item) => item !== prompt.prompt)
-    return
+    props.modelValue.negative = props.modelValue.negative.filter((item) => item !== prompt.prompt);
+    return;
   }
-  props.modelValue.negative.push(prompt.prompt)
+  props.modelValue.negative.push(prompt.prompt);
 }
 
 function color(prompt: PromptTag) {
   if (props.modelValue.negative.includes(prompt.prompt)) {
-    return "text-error error"
+    return "text-error error";
   }
-  return undefined
+  return undefined;
 }
 </script>
 
@@ -48,7 +48,15 @@ function color(prompt: PromptTag) {
     <v-col cols="12" v-for="group in category.groups" :key="group.subcategory">
       <div>{{ group.subcategory }}</div>
       <v-chip-group multiple selected-class="text-primary" column filter variant="outlined">
-        <v-chip label outlined v-for="prompt in group.prompts" :key="prompt.prompt" @click="positive(prompt)" v-on:contextmenu.prevent :class="color(prompt)">
+        <v-chip
+          label
+          outlined
+          v-for="prompt in group.prompts"
+          :key="prompt.prompt"
+          @click="positive(prompt)"
+          v-on:contextmenu.prevent
+          :class="color(prompt)"
+        >
           <div @contextmenu.native="negative(prompt)">{{ prompt.tag }}</div>
         </v-chip>
       </v-chip-group>
