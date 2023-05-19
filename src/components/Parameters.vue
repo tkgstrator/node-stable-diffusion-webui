@@ -55,12 +55,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-row>
+  <v-row :dense="true">
     <Options />
     <v-divider></v-divider>
     <Sampling :parameters="parameters" />
     <v-col cols="12" lg="4">
-      <v-row>
+      <v-row :dense="true">
         <v-col cols="12" sm="6" md="6" lg="12" xl="12" class="images-preview mb-2">
           <v-img :src="images[selected_index]" class="mx-auto">
             <template v-slot:placeholder>

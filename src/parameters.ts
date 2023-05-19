@@ -96,10 +96,12 @@ export class Prompt {
 export class PromptTag {
   tag: string;
   prompt: string;
+  selected: boolean
 
-  constructor(key: string, value: string) {
+  constructor(key: string, value: string, selected = false) {
     this.tag = key;
     this.prompt = value;
+    this.selected = selected;
   }
 }
 
@@ -117,16 +119,15 @@ export class CategoryTagGroup {
   category: CategoryGroup;
   groups: CategoryTag[];
 
-  constructor(category: CategoryGroup) {
+  constructor(category: CategoryGroup, prompt: string[] = []) {
     const index: number = Object.values(CategoryGroup).indexOf(category);
-    console.log(index);
     this.category = category;
     this.groups =
       index === -1
         ? []
         : Object.entries(categories[index]).map(([key, values]) => {
             const subcategory: string = key;
-            const prompts: PromptTag[] = Object.entries(values).map(([key, value]) => new PromptTag(key, value as string));
+            const prompts: PromptTag[] = Object.entries(values).map(([key, value]) => new PromptTag(key, value as string, prompt.includes(value as string)));
             return new CategoryTag(subcategory, prompts);
           });
   }

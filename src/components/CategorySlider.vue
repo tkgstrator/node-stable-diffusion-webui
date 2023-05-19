@@ -23,19 +23,18 @@ function selected(category: CategoryGroup, callback: () => void) {
 </script>
 
 <template>
-  <v-slide-group show-arrows center-active mandatory>
-    <v-slide-group-item v-for="[key, category] in Object.entries(CategoryGroup)" :key="key" v-slot="{ isSelected, toggle }">
-      <v-btn
-        class="ma-1"
-        :variant="isSelected ? undefined : 'outlined'"
-        :color="isSelected ? 'primary' : undefined"
-        rounded
-        @click="selected(category, toggle)"
-      >
-        {{ category }}
-      </v-btn>
-    </v-slide-group-item>
-  </v-slide-group>
+  <v-row :dense="true">
+    <v-slide-group show-arrows center-active mandatory>
+      <v-slide-group-item v-for="[key, category] in Object.entries(CategoryGroup)" :key="key"
+        v-slot="{ isSelected, toggle }">
+        <v-btn class="ma-1" :variant="isSelected ? undefined : 'outlined'" :color="isSelected ? 'primary' : undefined"
+          rounded @click="selected(category, toggle)">
+          {{ category }}
+        </v-btn>
+      </v-slide-group-item>
+    </v-slide-group>
+  </v-row>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

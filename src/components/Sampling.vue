@@ -122,9 +122,9 @@ defineProps({
           <v-btn @click="parameters.seed = -1">
             <v-icon icon="mdi-dice-6-outline" role="img"></v-icon>
           </v-btn>
-          <v-btn @click="parameters.seed = previous_parameters.seed">
+          <!-- <v-btn @click="parameters.seed = previous_parameters.seed">
             <v-icon icon="mdi-recycle-variant" role="img"></v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-btn-toggle>
       </v-col>
     </v-row>
@@ -157,9 +157,6 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
-.v-col {
-  padding: 0 0.5rem;
-}
 
 .v-row {
   margin: 0px;

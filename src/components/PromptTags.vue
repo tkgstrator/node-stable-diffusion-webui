@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { watch, ref, Ref } from "vue";
-import { CategoryGroup, CategoryTag, CategoryTagGroup, Prompt, PromptTag } from "@/parameters";
+import { CategoryTagGroup, Prompt, PromptTag } from "@/parameters";
+import { onUnmounted } from "vue";
+import { onMounted } from "vue";
 import { PropType } from "vue";
 
 const props = defineProps({
@@ -27,6 +28,10 @@ function positive(prompt: PromptTag) {
   props.modelValue.positive.push(prompt.prompt);
 }
 
+function reset() {
+  props.modelValue.positive = [];
+}
+
 function negative(prompt: PromptTag) {
   if (props.modelValue.negative.includes(prompt.prompt)) {
     props.modelValue.negative = props.modelValue.negative.filter((item) => item !== prompt.prompt);
@@ -34,40 +39,38 @@ function negative(prompt: PromptTag) {
   }
   props.modelValue.negative.push(prompt.prompt);
 }
-
-function color(prompt: PromptTag) {
-  if (props.modelValue.negative.includes(prompt.prompt)) {
-    return "text-error error";
-  }
-  return undefined;
-}
 </script>
 
 <template>
-  <v-row class="mt-2">
+  <v-row :dense="true">
     <v-col cols="12" v-for="group in category.groups" :key="group.subcategory">
       <div>{{ group.subcategory }}</div>
-      <v-chip-group multiple selected-class="text-primary" column filter variant="outlined">
-        <v-chip
-          label
-          outlined
-          v-for="prompt in group.prompts"
-          :key="prompt.prompt"
-          @click="positive(prompt)"
-          v-on:contextmenu.prevent
-          :class="color(prompt)"
-        >
-          <div @contextmenu.native="negative(prompt)">{{ prompt.tag }}</div>
-        </v-chip>
+      <v-chip-group variant="outlined">
+        <template v-for="prompt in group.prompts" :key="prompt.prompt">
+          <v-chip v-on:contextmenu.prevent @click="positive(prompt)" :class="prompt.selected ? 'primary text-primary' : undefined" :max="0">
+            {{ prompt.tag }}
+          </v-chip>
+        </template>
       </v-chip-group>
+    </v-col>
+    <v-col cols="12">
+      <v-btn-group outline variant="outlined" divided>
+      <v-btn @click="reset">Reset</v-btn>
+      <v-btn @click="reset">Restore</v-btn>
+      </v-btn-group>
     </v-col>
   </v-row>
 </template>
 
 <style lang="scss" scoped>
+.v-btn {
+  height: 40px !important;
+}
+
 .v-row {
   margin: 0px;
 }
+
 .v-card-title {
   font-size: 1.1rem;
   font-weight: bold;
@@ -78,12 +81,9 @@ function color(prompt: PromptTag) {
   padding: 0;
 }
 
-.v-chip.error.primary {
-  color: white;
-  background-color: #f44336;
-}
-
-.v-col {
-  padding: 8px 8px 8px 12px;
+.v-chip {
+  ::selection {
+    background-color: transparent;
+  }
 }
 </style>

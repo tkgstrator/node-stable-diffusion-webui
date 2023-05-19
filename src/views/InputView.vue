@@ -13,7 +13,7 @@ const parameters: Ref<SDWebUIParameters> = ref(new SDWebUIParameters());
 const category_tag_group: Ref<CategoryTagGroup> = ref(new CategoryTagGroup(CategoryGroup.DEFAULT));
 
 watch(parameters.value, (new_value, old_value) => {
-  category_tag_group.value = new CategoryTagGroup(new_value.category);
+  category_tag_group.value = new CategoryTagGroup(new_value.category, new_value.prompts.positive);
 });
 </script>
 
