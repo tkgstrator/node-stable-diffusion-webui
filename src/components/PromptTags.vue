@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { CategoryTagGroup, Prompt, PromptTag } from "@/parameters";
-import { onUnmounted } from "vue";
-import { onMounted } from "vue";
 import { PropType } from "vue";
 
 const props = defineProps({
@@ -18,6 +16,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (event: "update:modelValue", modelValue: Prompt): void;
+  (event: "restore"): void;
 }>();
 
 function positive(prompt: PromptTag) {
@@ -39,6 +38,11 @@ function negative(prompt: PromptTag) {
   }
   props.modelValue.negative.push(prompt.prompt);
 }
+
+function restore() {
+  console.log("Restore Emit")
+  emit("restore");
+}
 </script>
 
 <template>
@@ -56,7 +60,7 @@ function negative(prompt: PromptTag) {
     <v-col cols="12">
       <v-btn-group outline variant="outlined" divided>
       <v-btn @click="reset">Reset</v-btn>
-      <v-btn @click="reset">Restore</v-btn>
+      <v-btn @click="restore">Restore</v-btn>
       </v-btn-group>
     </v-col>
   </v-row>

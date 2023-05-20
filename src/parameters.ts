@@ -87,7 +87,7 @@ export class SDWebUIParameters {
  */
 export class Prompt {
   positive: string[] = [];
-  negative: string[] = ["EasyNegativev2", "EasyNegative", "badhandv4", "bad-hands-5", "bad_prompt_version2", "signature", "text,signature"];
+  negative: string[] = ["EasyNegativev2", "EasyNegative", "badhandv4", "bad-hands-5", "bad_prompt_version2", "text, signature"];
 }
 
 /**
