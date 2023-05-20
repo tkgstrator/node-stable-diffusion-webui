@@ -14,9 +14,10 @@ import Options from "./Options.vue";
 import Sampling from "./Sampling.vue";
 import { PropType } from "vue";
 import { Prompt, PromptTag } from "@/parameters";
+import { watch } from "vue";
 
 const images: Ref<string[]> = ref([]);
-const selected_index: Ref<number> = ref(0);
+const selected_index: Ref<number> = ref(-1);
 const is_generating: Ref<boolean> = ref(false);
 const progress: Ref<Txt2ImgProgress> = ref(new Txt2ImgProgress());
 const client: SDWebUIAPI = new SDWebUIAPI();
@@ -24,7 +25,7 @@ const parameters: Ref<Txt2ImgParameters> = ref(new Txt2ImgParameters());
 const previous_parameters: Ref<Txt2ImgParameters> = ref(new Txt2ImgParameters());
 const options: Ref<SDWebUIAPIOptions> = ref(new SDWebUIAPIOptions());
 const sd_models: Ref<SDModelCheckpoint[]> = ref([]);
-
+const is_presented: Ref<boolean> = ref(false);
 const props = defineProps({
   prompts: {
     type: Object as PropType<Prompt>,
@@ -39,7 +40,7 @@ async function txt2img(): Promise<void> {
   parameters.value.prompt = props.prompts.positive.join(",");
   parameters.value.negative_prompt = props.prompts.negative.join(",");
   const response: Txt2ImgResponse = await client.txt2img(parameters.value, get_progress);
-  images.value = response.images;
+  images.value = response.images.length > 2 ? response.images.slice(1) : response.images;
   previous_parameters.value = response.parameters;
   is_generating.value = false;
 }
@@ -48,10 +49,28 @@ async function get_progress(callback: Txt2ImgProgress): Promise<void> {
   progress.value = callback;
 }
 
+watch(images, (new_value, old_value) => {
+  if (new_value.length > 0) {
+    selected_index.value = 0;
+  }
+});
+
 onMounted(async () => {
   options.value = await client.get_options();
   sd_models.value = await client.get_sd_models();
 });
+
+function toggle(): void {
+  is_presented.value = !is_presented.value;
+  console.log("toggle");
+}
+
+function background(selected_index: number): string {
+  if (selected_index === -1) {
+    return "background-color: #000000";
+  }
+  return "background-color: #000000; background-image: url(" + images.value[selected_index] + "); background-size: contain; background-position: center; background-repeat: no-repeat;";
+}
 </script>
 
 <template>
@@ -62,7 +81,7 @@ onMounted(async () => {
     <v-col cols="12" lg="4">
       <v-row :dense="true">
         <v-col cols="12" sm="6" md="6" lg="12" xl="12" class="images-preview mb-2">
-          <v-img :src="images[selected_index]" class="mx-auto">
+          <v-img :src="images[selected_index]" class="mx-auto" @click="toggle">
             <template v-slot:placeholder>
               <div class="d-flex align-center justify-center fill-height">
                 <v-progress-linear color="amber" max="1" min="0" :model-value="progress.progress" height="25">
@@ -72,21 +91,18 @@ onMounted(async () => {
                 </v-progress-linear>
               </div>
             </template>
+            <v-overlay v-model="is_presented" class="align-center justify-center" scrim="#00000000" transition="scale-transition" eager>
+              <!-- <v-img :src="images[selected_index]" class="preview" @click="toggle"></v-img> -->
+            </v-overlay>
           </v-img>
         </v-col>
         <v-col cols="12" sm="3" md="6" lg="3" xl="3">
           <v-btn v-if="!is_generating" color="primary" dark style="width: 100%" @click="txt2img">Generate</v-btn>
           <v-btn v-else color="primary" dark style="width: 100%" @click="is_generating">Interrupt</v-btn>
         </v-col>
-        <v-col cols="2" class="justify-center" v-for="(image, index) in images" :key="index">
-          <v-img
-            :src="image"
-            width="64"
-            class="mx-2"
-            @click="selected_index = index"
-            :class="selected_index === index ? 'selected' : ''"
-            :cover="true"
-          ></v-img>
+        <v-col cols="3" class="justify-center" v-for="(image, index) in images" :key="index">
+          <v-img :src="image" @click="selected_index = index"
+            :class="selected_index === index ? 'selected' : ''" :cover="true"></v-img>
         </v-col>
       </v-row>
     </v-col>
