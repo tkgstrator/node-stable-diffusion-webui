@@ -36,12 +36,16 @@ async function txt2img(): Promise<void> {
   progress.value = new Txt2ImgProgress();
   images.value = [];
   is_generating.value = true;
-  parameters.value.prompt = props.prompts.positive.join(",");
-  parameters.value.negative_prompt = props.prompts.negative.join(",");
+  parameters.value.prompt = props.prompts.positive.join(", ");
+  parameters.value.negative_prompt = props.prompts.negative.join(", ");
   const response: Txt2ImgResponse = await client.txt2img(parameters.value, get_progress);
   images.value = response.images.length > 2 ? response.images.slice(1) : response.images;
   localStorage.setItem("parameters", JSON.stringify(response.parameters));
   is_generating.value = false;
+
+  if (parameters.value.post_images) {
+    client.post(response.parameters, images.value)
+  }
 }
 
 async function get_progress(callback: Txt2ImgProgress): Promise<void> {

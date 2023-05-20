@@ -40,7 +40,6 @@ function negative(prompt: PromptTag) {
 }
 
 function restore() {
-  console.log("Restore Emit")
   emit("restore");
 }
 </script>

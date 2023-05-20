@@ -74,8 +74,15 @@ export class Txt2ImgParameters {
   batch_count = 1;
   batch_size = 1;
   save_images = true;
-  post_images = false;
-  nsfw = false;
+  post_images = true;
+  readonly infotexts: string[] = [];
+
+  get info(): string {
+    if (this.infotexts.length !== 1) {
+      return "```" + this.infotexts.slice(1).join("\n\n") + "```"
+    }
+    return "```" + this.infotexts.join("\n") + "```"
+  }
 }
 
 export class SDWebUIAPIOptions {
@@ -114,6 +121,16 @@ export class SDWebUIAPI {
     this.base_url = import.meta.env.VITE_APP_SDWEBUI_API_BASE_URL;
   }
 
+  private base64ToFile(base64: string) {
+    const bin = atob(base64.replace(/^.*,/, ''));
+    const buffer = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+    }
+    const filename: string = ("000000000" + (Math.random() * 1000000000)).slice(-9);
+    return new File([buffer.buffer], `${filename}.png`, {type: "image/png"});
+};
+
   private async request(method: HTTPMethod, endpoint: SDWebUIAPIEndPoint, params: object = {}): Promise<any> {
     const url = this.base_url + endpoint;
     try {
@@ -123,6 +140,21 @@ export class SDWebUIAPI {
         case HTTPMethod.POST:
           return await axios.post(url, params);
       }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async post(parameters: Txt2ImgParameters, images: string[]): Promise<void> {
+    const url: string = parameters.prompt.includes("nsfw") ? import.meta.env.VITE_APP_WEBHOOK_NSFW_URL as string : import.meta.env.VITE_APP_WEBHOOK_URL as string;
+    try {
+      const form = new FormData();
+      form.append("content", parameters.info)
+      const attachments = images.map((image) => this.base64ToFile(image));
+      attachments.forEach((attachment, index) => {
+        form.append(`file_${index}`, attachment);
+      })
+      await axios.post(url, form)
     } catch (error) {
       console.error(error);
     }
